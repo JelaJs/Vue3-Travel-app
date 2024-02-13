@@ -15,7 +15,7 @@
       <div class="menu">
         <ul v-if="mapPalces">
           <li v-for="place in mapPalces" :key="place.place_id">
-            <div>
+            <div @click="showMarker(place)">
               <div>
                 <img
                   class="place-img"
@@ -29,6 +29,8 @@
               </div>
               <p>{{ place.name }}</p>
             </div>
+            <a v-if="place.website" :href="place.website" target="_blank">Visit website</a>
+            <button @click="addToFavorites(place)">Add to favorites</button>
           </li>
         </ul>
       </div>
@@ -63,6 +65,10 @@ const showMap = (lat, lng) => {
   service = new google.maps.places.PlacesService(map)
   service.nearbySearch(request, callback)
 
+  setEventListener(map)
+}
+
+const setEventListener = (map) => {
   google.maps.event.addListener(map, 'dragend', () => {
     console.log('Drag radi')
     let center = map.getCenter()
@@ -102,6 +108,40 @@ function callback(results, status) {
   }
 }
 
+function showMarker(place) {
+  // Ova funkcija postavlja marker na karti za odabrano mjesto
+
+  // Provjerite da li postoji mapa
+  if (!google || !google.maps) {
+    console.error('Google Maps API is not awailable')
+    return
+  }
+
+  // Uzmite koordinate mjesta
+  const { geometry } = place
+  const location = geometry.location
+  let lat = location.lat()
+  let lng = location.lng()
+
+  let map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 15,
+    center: new google.maps.LatLng(lat, lng),
+    draggable: true
+    //mapTypeId: google.maps.mapTypeId.ROADMAP
+  })
+
+  setEventListener(map)
+
+  // Kreirajte marker
+  const marker = new google.maps.Marker({
+    position: location,
+    map: map // Ovdje "map" treba biti referenca na vašu Google Maps kartu
+  })
+
+  // Centrirajte mapu na markeru
+  map.setCenter(location)
+}
+
 onMounted(() => {
   let autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'))
   autocomplete.addListener('place_changed', () => {
@@ -120,23 +160,7 @@ onMounted(() => {
     draggable: true
   })
 
-  google.maps.event.addListener(map, 'dragend', () => {
-    console.log('Drag radi')
-    let center = map.getCenter()
-    let lat = center.lat()
-    let lng = center.lng()
-
-    let request = {
-      location: new google.maps.LatLng(lat, lng),
-      radius: '500',
-      type: 'lodging'
-    }
-
-    mapPalces.value = []
-    service = new google.maps.places.PlacesService(map)
-    service.nearbySearch(request, callback)
-    //showMap(lat, lng)
-  })
+  setEventListener(map)
 })
 </script>
 
@@ -158,6 +182,10 @@ onMounted(() => {
     width: 20%;
     height: 100vh;
     overflow-y: scroll;
+
+    li {
+      cursor: pointer;
+    }
 
     .place-img {
       width: 80%;
