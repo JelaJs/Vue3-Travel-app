@@ -6,6 +6,7 @@
     <nav>
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/accomodation">Where To Stay</RouterLink>
       <RouterLink to="/explore">Find Hotel</RouterLink>
     </nav>
   </header>
