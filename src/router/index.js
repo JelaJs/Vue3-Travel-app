@@ -2,9 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import FindHotelView from '../views/FindHotelView.vue'
-import Accomodation from '../views/AccomodationView.vue'
-import SingleAcc from '../views/SingleAccomodationView.vue'
-import SinglePlace from '../views/SinglePlaceView.vue'
+import SingleAccPage from '../views/SingleAccPageView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,19 +23,9 @@ const router = createRouter({
       component: FindHotelView
     },
     {
-      path: '/accomodation',
-      name: 'accomodation',
-      component: Accomodation
-    },
-    {
-      path: '/accomodation/:id',
-      name: 'singleaccomodation',
-      component: SingleAcc
-    },
-    {
-      path: '/accomodation/:id/:number',
-      name: 'singleplace',
-      component: SinglePlace
+      path: '/singleacc/:id',
+      name: 'singleaccpage',
+      component: SingleAccPage
     }
   ]
 })

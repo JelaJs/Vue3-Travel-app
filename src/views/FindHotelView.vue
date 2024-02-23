@@ -167,6 +167,7 @@ onMounted(() => {
 <style scoped lang="scss">
 .header-input-wrap {
   padding-left: 1rem;
+  padding-top: 6rem;
   input {
     outline: none;
     padding: 0.5rem 0.5rem;

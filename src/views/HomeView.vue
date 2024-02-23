@@ -1,7 +1,19 @@
 <template>
   <main>
-    <h1>Home Page</h1>
+    <div>
+      <Hero />
+      <GetInspired />
+      <KnowBefore />
+      <FindAcc />
+      <HomeBuild />
+    </div>
   </main>
 </template>
 
-<script setup></script>
+<script setup>
+import Hero from '../components/HomeHero.vue'
+import GetInspired from '../components/GetInspired.vue'
+import KnowBefore from '../components/KnowBeforeYouGo.vue'
+import FindAcc from '../components/FindAcc.vue'
+import HomeBuild from '../components/HomeBuildTrip.vue'
+</script>
