@@ -27,9 +27,15 @@
       <div class="container">
         <p class="section-headers">{{ accData.name }}</p>
         <div class="grid">
-          <div v-for="acc in accomodations" :key="acc.id" class="acc-wrap">
+          <div
+            v-for="acc in accomodations"
+            :key="acc.id"
+            class="acc-wrap"
+            @click="goToSingleAcc(acc.id)"
+          >
             <div class="img-inner-wrap">
               <img :src="acc.image.url" alt="Accomodations images" />
+              <button class="btn-save">+</button>
             </div>
             <div class="content-inner-wrap">
               <p class="acc-type">{{ acc.type }}</p>
@@ -62,6 +68,10 @@ const router = useRouter()
 
 const goHome = () => {
   router.push('/')
+}
+
+const goToSingleAcc = (number) => {
+  router.push(`/singleacc/${id.value}/${number}`)
 }
 
 const changeWeather = (weatherStr) => {
@@ -177,6 +187,7 @@ onMounted(async () => {
   }
 
   .img-inner-wrap {
+    position: relative;
     overflow: hidden;
   }
 
@@ -187,6 +198,19 @@ onMounted(async () => {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .btn-save {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    color: #fff;
+    font-size: 2.3rem;
+    font-weight: 500;
+    padding: 0.5rem;
+    border: 1px solid #fff;
     cursor: pointer;
   }
 

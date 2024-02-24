@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import FindHotelView from '../views/FindHotelView.vue'
 import SingleAccPage from '../views/SingleAccPageView.vue'
+import SingleAccReviewPage from '../views/SingleAccReviewPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/singleacc/:id',
       name: 'singleaccpage',
       component: SingleAccPage
+    },
+    {
+      path: '/singleacc/:id/:number',
+      name: 'singleaccreview',
+      component: SingleAccReviewPage
     }
   ]
 })
