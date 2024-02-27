@@ -1,7 +1,8 @@
 <template>
-  <div class="home-get-section">
+  <div class="all-trips-section">
     <div class="container">
-      <p class="section-headers">Trip Ideas</p>
+      <p class="section-headers">Get Inspired</p>
+      <p class="sub-title">Trip Ideas:</p>
       <div v-if="tripIdeas" class="trip-flex">
         <div v-for="trip in tripIdeas" :key="trip.id">
           <div class="img-content-wrap">
@@ -32,8 +33,9 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
-.home-get-section {
-  padding-top: 35rem;
+.all-trips-section {
+  padding-top: 8rem;
+  padding-bottom: 6rem;
 
   .sub-title {
     margin-top: 3rem;

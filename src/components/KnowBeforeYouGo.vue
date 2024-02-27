@@ -2,7 +2,12 @@
   <div class="home-know-section">
     <div class="container">
       <p class="section-headers">Know Before You Go</p>
-      <div class="content-box" @mouseover="boxContent" @mouseout="boxContentDefoult">
+      <div
+        class="content-box"
+        @mouseover="boxContent"
+        @mouseout="boxContentDefoult"
+        @click="goToSeasonPage"
+      >
         <p class="box-header">Seasons & Climate</p>
         <p class="hover-text">
           velit eu aliquet. Proin euismod dignissim enim, quis consequat quam imperdiet nec. Aenean
@@ -18,7 +23,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const box = ref(null)
 const hoverp = ref(null)
 const spanContent = ref('>')
@@ -36,6 +43,10 @@ const boxContentDefoult = () => {
   hoverp.value.style.opacity = '0'
   hoverp.value.style.lineHeight = '0'
   spanContent.value = '>'
+}
+
+const goToSeasonPage = () => {
+  router.push('/seasonclimate')
 }
 
 onMounted(() => {

@@ -5,8 +5,8 @@
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">Trip Ideas</RouterLink>
-        <RouterLink to="/accomodation">Where To Stay</RouterLink>
+        <RouterLink to="/tripideas">Trip Ideas</RouterLink>
+        <RouterLink to="/accomodations">Where To Stay</RouterLink>
       </nav>
     </div>
 
