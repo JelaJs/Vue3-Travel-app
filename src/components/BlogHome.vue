@@ -8,7 +8,7 @@
               <div class="blog-left">
                 <p class="blog-header">{{ blog.name }}</p>
                 <p class="blog-desc">{{ blog.shortDesc }}</p>
-                <button>Read More</button>
+                <button @click="GoToSingleBlog(blog.id)">Read More</button>
               </div>
               <div class="blog-right"><img :src="blog.blogImg.url" alt="Blog images" /></div>
             </div>
@@ -26,6 +26,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { fetchData } from '../globalFunc/apiCallfunc'
+import { useRouter } from 'vue-router'
 import { defineComponent } from 'vue'
 import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
 
@@ -34,10 +35,15 @@ import 'vue3-carousel/dist/carousel.css'
 const blogs = ref(null)
 const apiUrl = 'https://x8ki-letl-twmt.n7.xano.io/api:GC_IgfR7/blog'
 const blogsErr = ref(null)
+const router = useRouter()
+
+const GoToSingleBlog = (id) => {
+  router.push(`/blog/${id}`)
+}
 
 onMounted(async () => {
   await fetchData(apiUrl, blogs, blogsErr)
-  console.log('Blogs val', blogs.value)
+  //console.log('Blogs val', blogs.value)
 })
 </script>
 

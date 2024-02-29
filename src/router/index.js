@@ -7,6 +7,8 @@ import SingleAccReviewPage from '../views/SingleAccReviewPage.vue'
 import SeasonClimate from '../views/SeasonClimateView.vue'
 import TripIdeas from '../views/TripIdeasView.vue'
 import AccomodationView from '../views/AccomodationView.vue'
+import SingleBlog from '../views/SingleBlogView.vue'
+import SingletripIdea from '../views/SingleTripIdeaView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +52,16 @@ const router = createRouter({
       path: '/tripideas',
       name: 'tripideas',
       component: TripIdeas
+    },
+    {
+      path: '/blog/:id',
+      name: 'singleblog',
+      component: SingleBlog
+    },
+    {
+      path: '/tripideas/:id',
+      name: 'singletripidea',
+      component: SingletripIdea
     }
   ]
 })

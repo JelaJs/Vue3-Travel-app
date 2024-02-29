@@ -3,7 +3,7 @@
     <div class="container">
       <p class="section-headers">Trip Ideas</p>
       <div v-if="tripIdeas" class="trip-flex">
-        <div v-for="trip in tripIdeas" :key="trip.id">
+        <div @click="goToSingleTripIdea(trip.id)" v-for="trip in tripIdeas" :key="trip.id">
           <div class="img-content-wrap">
             <div class="img-wrap">
               <img :src="trip.singleimage.url" alt="Single trip image" />
@@ -20,11 +20,15 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { fetchData } from '../globalFunc/apiCallfunc'
-//import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 const tripIdeas = ref(null)
 const apiUrl = 'https://x8ki-letl-twmt.n7.xano.io/api:GC_IgfR7/tripideas'
 const errors = ref(null)
-//const router = useRouter()
+const router = useRouter()
+
+const goToSingleTripIdea = (id) => {
+  router.push(`/tripideas/${id}`)
+}
 
 onMounted(async () => {
   await fetchData(apiUrl, tripIdeas, errors)
