@@ -49,7 +49,7 @@ const tripErr = ref(null)
 
 onMounted(async () => {
   await fetchData(apiUrl, tripData, tripErr)
-  console.log(tripData.value)
+  //console.log(tripData.value)
 })
 </script>
 
