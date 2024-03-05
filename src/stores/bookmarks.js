@@ -41,5 +41,15 @@ export const useBookmarkStore = defineStore('bookmark', () => {
     })
   }
 
-  return { bookmarks, setLocalStorage, compareTwoArrs, modifyArray }
+  function modifyObj(obj, array2) {
+    let foundInArray2 = array2.some((obj2) => obj2.name === obj.name)
+
+    if (foundInArray2) {
+      obj.isSaved = true
+    } else {
+      obj.isSaved = false
+    }
+  }
+
+  return { bookmarks, setLocalStorage, compareTwoArrs, modifyArray, modifyObj }
 })

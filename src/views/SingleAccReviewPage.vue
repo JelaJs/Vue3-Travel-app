@@ -7,7 +7,12 @@
         <div class="left">
           <h3 class="header">{{ singleAccData.name }}</h3>
           <p>{{ singleAccData.desc }}</p>
-          <button>Add to Bookmarks</button>
+          <button v-if="!singleAccData.isSaved" @click.stop="addToBookmarks(singleAccData)">
+            Add to Bookmarks
+          </button>
+          <button v-if="singleAccData.isSaved" @click.stop="RemoveFromBookmarks(singleAccData)">
+            Remove from Bookmarks
+          </button>
         </div>
         <div class="right">
           <div class="details-wrap">
@@ -40,6 +45,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { fetchData } from '../globalFunc/apiCallfunc'
 import { fetchAccData } from '../globalFunc/singleAccfunc'
+import { useBookmarkStore } from '../stores/bookmarks.js'
 
 const router = useRouter()
 const route = useRoute()
@@ -51,15 +57,31 @@ const accError = ref(null)
 const nameLink = ref(null)
 const singleAccData = ref(null)
 const singleAccErr = ref(null)
+const bookmark = useBookmarkStore()
 
 const goToHome = () => {
   router.push('/')
+}
+
+const addToBookmarks = (acc) => {
+  bookmark.bookmarks.push(acc)
+  bookmark.setLocalStorage()
+  bookmark.modifyObj(singleAccData.value, bookmark.bookmarks)
+  //console.log('Bookmarks arr', bookmark.bookmarks)
+}
+
+const RemoveFromBookmarks = (acc) => {
+  const elInd = bookmark.bookmarks.findIndex((ac) => ac.name === acc.name)
+  bookmark.bookmarks.splice(elInd, 1)
+  bookmark.setLocalStorage()
+  bookmark.modifyObj(singleAccData.value, bookmark.bookmarks)
 }
 
 onMounted(async () => {
   await fetchAccData(apiUrl, accData, nameLink, accError)
   const singleAccUrl = `https://x8ki-letl-twmt.n7.xano.io/api:GC_IgfR7/${nameLink.value}/${number.value}`
   await fetchData(singleAccUrl, singleAccData, singleAccErr)
+  bookmark.modifyObj(singleAccData.value, bookmark.bookmarks)
 })
 </script>
 

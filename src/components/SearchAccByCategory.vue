@@ -62,7 +62,16 @@
             >
               <div class="img-inner-wrap">
                 <img :src="acc.image.url" alt="Accomodations images" />
-                <button class="btn-save">+</button>
+                <button v-if="!acc.isSaved" class="btn-save" @click.stop="addToBookmarks(acc)">
+                  +
+                </button>
+                <button
+                  v-if="acc.isSaved"
+                  class="btn-remove"
+                  @click.stop="removeFromBookmarks(acc)"
+                >
+                  -
+                </button>
               </div>
               <div class="content-inner-wrap">
                 <p class="acc-type">{{ acc.type }}</p>
@@ -80,6 +89,8 @@
 import { ref, onMounted } from 'vue'
 import { fetchData } from '../globalFunc/apiCallfunc'
 import { useRouter } from 'vue-router'
+import { useBookmarkStore } from '../stores/bookmarks.js'
+
 const router = useRouter()
 const allAccs = ref([])
 const allAccsUrl = 'https://x8ki-letl-twmt.n7.xano.io/api:GC_IgfR7/allsingleaccs'
@@ -89,6 +100,7 @@ const cabin = ref(false)
 const camp = ref(false)
 const bed_br = ref(false)
 const filteredAccs = ref(allAccs.value)
+const bookmark = useBookmarkStore()
 
 const print = (hotel, cabin, camp, bed_br) => {
   let hotels = []
@@ -139,10 +151,26 @@ const goToSingleAcc = (cabin_id, bad_breakfast_id, camping_rv_id, hotel_id) => {
   }
 }
 
+const addToBookmarks = (acc) => {
+  bookmark.bookmarks.push(acc)
+  bookmark.setLocalStorage()
+  //bookmark.compareTwoArrs(accomodations.value, bookmark.bookmarks)
+  bookmark.modifyArray(filteredAccs.value, bookmark.bookmarks)
+  //console.log('Bookmarks arr', bookmark.bookmarks)
+}
+
+const removeFromBookmarks = (acc) => {
+  const elInd = bookmark.bookmarks.findIndex((ac) => ac.name === acc.name)
+  bookmark.bookmarks.splice(elInd, 1)
+  bookmark.setLocalStorage()
+  bookmark.modifyArray(filteredAccs.value, bookmark.bookmarks)
+}
+
 onMounted(async () => {
   await fetchData(allAccsUrl, allAccs, accsErr)
   filteredAccs.value = allAccs.value
   console.log('All accs', allAccs.value)
+  bookmark.modifyArray(filteredAccs.value, bookmark.bookmarks)
 })
 </script>
 
@@ -190,7 +218,8 @@ onMounted(async () => {
     cursor: pointer;
   }
 
-  .btn-save {
+  .btn-save,
+  .btn-remove {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -201,6 +230,23 @@ onMounted(async () => {
     padding: 0.5rem;
     border: 1px solid #fff;
     cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .btn-save:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .btn-remove {
+    background-color: #fff;
+    color: #000;
+    padding: 0.5rem 1rem;
+  }
+
+  .btn-remove:hover {
+    background-color: transparent;
+    color: #fff;
   }
 
   .content-inner-wrap {
