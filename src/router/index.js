@@ -10,6 +10,7 @@ import AccomodationView from '../views/AccomodationView.vue'
 import SingleBlog from '../views/SingleBlogView.vue'
 import SingletripIdea from '../views/SingleTripIdeaView.vue'
 import SingleActivity from '../views/SingleActivityView.vue'
+import YourTripView from '../views/YourTripView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,6 +69,11 @@ const router = createRouter({
       path: '/activity/:id',
       name: 'singleactivity',
       component: SingleActivity
+    },
+    {
+      path: '/yourtrip',
+      name: 'yourtrip',
+      component: YourTripView
     }
   ]
 })

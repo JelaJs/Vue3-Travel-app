@@ -13,7 +13,7 @@
     <div class="build-and-find">
       <nav>
         <RouterLink to="/explore">Find Hotel</RouterLink>
-        <RouterLink to="/">Your Trip</RouterLink>
+        <RouterLink to="/yourtrip">Your Trip</RouterLink>
       </nav>
     </div>
   </header>

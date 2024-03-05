@@ -35,7 +35,12 @@
           >
             <div class="img-inner-wrap">
               <img :src="acc.image.url" alt="Accomodations images" />
-              <button class="btn-save">+</button>
+              <button v-if="!acc.isSaved" class="btn-save" @click.stop="addToBookmarks(acc)">
+                +
+              </button>
+              <button v-if="acc.isSaved" class="btn-remove" @click.stop="removeFromBookmarks(acc)">
+                -
+              </button>
             </div>
             <div class="content-inner-wrap">
               <p class="acc-type">{{ acc.type }}</p>
@@ -54,6 +59,7 @@ import { useRoute } from 'vue-router'
 import { fetchAccData } from '../globalFunc/singleAccfunc'
 import { fetchData } from '../globalFunc/apiCallfunc'
 import { useRouter } from 'vue-router'
+import { useBookmarkStore } from '../stores/bookmarks.js'
 
 const route = useRoute()
 const id = ref(route.params.id)
@@ -65,6 +71,7 @@ const weather = ref('winter')
 const accomodations = ref(null)
 const accomodationsError = ref(null)
 const router = useRouter()
+const bookmark = useBookmarkStore()
 
 const goHome = () => {
   router.push('/')
@@ -86,10 +93,27 @@ const changeWeather = (weatherStr) => {
   })
 }
 
+const addToBookmarks = (acc) => {
+  bookmark.bookmarks.push(acc)
+  bookmark.setLocalStorage()
+  //bookmark.compareTwoArrs(accomodations.value, bookmark.bookmarks)
+  bookmark.modifyArray(accomodations.value, bookmark.bookmarks)
+  //console.log('Bookmarks arr', bookmark.bookmarks)
+}
+
+const removeFromBookmarks = (acc) => {
+  const elInd = bookmark.bookmarks.findIndex((ac) => ac.name === acc.name)
+  bookmark.bookmarks.splice(elInd, 1)
+  bookmark.setLocalStorage()
+  bookmark.modifyArray(accomodations.value, bookmark.bookmarks)
+}
+
 onMounted(async () => {
   await fetchAccData(apiUrl, accData, nameLink, errorData)
   const apiUrlAccs = `https://x8ki-letl-twmt.n7.xano.io/api:GC_IgfR7/${nameLink.value}`
   await fetchData(apiUrlAccs, accomodations, accomodationsError)
+  console.log('Bookmarks arr', bookmark.bookmarks)
+  bookmark.modifyArray(accomodations.value, bookmark.bookmarks)
 })
 </script>
 
@@ -212,6 +236,31 @@ onMounted(async () => {
     padding: 0.5rem;
     border: 1px solid #fff;
     cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .btn-save:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .btn-remove {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #fff;
+    color: #000;
+    font-size: 2.3rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 1px solid #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .btn-remove:hover {
+    background-color: transparent;
+    color: #fff;
   }
 
   .content-inner-wrap {
