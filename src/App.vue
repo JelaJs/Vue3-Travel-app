@@ -14,6 +14,12 @@
       <nav>
         <RouterLink to="/explore">Find Hotel</RouterLink>
         <RouterLink to="/yourtrip">Your Trip</RouterLink>
+        <div v-show="!loginG.authToken">
+          <RouterLink to="/login">Login</RouterLink>
+        </div>
+        <div v-show="loginG.authToken">
+          <button class="logoutBtn" @click="logout">Logout</button>
+        </div>
       </nav>
     </div>
   </header>
@@ -22,7 +28,22 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import { useLoginStore } from '@/stores/login'
+
+const loginG = useLoginStore()
+let authTokenStore = localStorage.getItem('authToken')
+const authToken = ref(null)
+
+if (authTokenStore) {
+  loginG.authToken = JSON.parse(authTokenStore)
+}
+
+const logout = () => {
+  localStorage.removeItem('authToken')
+  loginG.authToken = null
+}
 </script>
 
 <style scoped lang="scss">
@@ -50,6 +71,14 @@ header {
     align-items: center;
     gap: 2rem;
     font-weight: 500;
+  }
+
+  .logoutBtn {
+    background-color: transparent;
+    border: none;
+    font-weight: 600;
+    font-size: 1.6rem;
+    cursor: pointer;
   }
 }
 </style>
