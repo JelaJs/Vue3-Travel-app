@@ -13,6 +13,7 @@ import SingleActivity from '../views/SingleActivityView.vue'
 import YourTripView from '../views/YourTripView.vue'
 import LoginView from '../views/LoginView.vue'
 import SignupView from '../views/SignupView.vue'
+import CustomTripMaker from '../views/CustomTripMakerView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,6 +87,11 @@ const router = createRouter({
       path: '/Signup',
       name: 'signup',
       component: SignupView
+    },
+    {
+      path: '/makeCustomtrip',
+      name: 'makecustomtrip',
+      component: CustomTripMaker
     }
   ]
 })

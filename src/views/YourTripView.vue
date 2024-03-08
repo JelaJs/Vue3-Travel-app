@@ -7,7 +7,7 @@
         <button class="tripbtn" @click="setPage('trips', $event)">My trips</button>
         <div class="page-wrapper">
           <BookmarksPage v-if="page === 'bookmarks'" />
-          <div v-if="page === 'trips'">No trips yet</div>
+          <TripsPage v-if="page === 'trips'" />
         </div>
       </div>
     </div>
@@ -16,6 +16,7 @@
 
 <script setup>
 import BookmarksPage from '@/components/BookmarksPage.vue'
+import TripsPage from '@/components/TripsPage.vue'
 import { ref, onMounted } from 'vue'
 
 const page = ref('bookmarks')

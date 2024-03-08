@@ -34,7 +34,6 @@ import { useLoginStore } from '@/stores/login'
 
 const loginG = useLoginStore()
 let authTokenStore = localStorage.getItem('authToken')
-const authToken = ref(null)
 
 if (authTokenStore) {
   loginG.authToken = JSON.parse(authTokenStore)
