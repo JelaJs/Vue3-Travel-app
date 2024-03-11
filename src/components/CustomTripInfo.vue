@@ -28,11 +28,17 @@ const router = useRouter()
 const clDate = () => {
   let dateArr = Array.from(date.value)
   let daysArr = dateArr.map((el) => el.getDate())
+  let firstDay = `${dateArr[0].getDate()}-${dateArr[0].getMonth() + 1}-${dateArr[0].getFullYear()}`
+  let lastDay = `${dateArr[dateArr.length - 1].getDate()}-${dateArr[dateArr.length - 1].getMonth() + 1}-${dateArr[dateArr.length - 1].getFullYear()}`
   let sortedDays = daysArr.sort((a, b) => a - b)
-  //console.log(date.value)
+  //console.log(lastDay)
   // console.log('Formated:', sortedDays)
+
   customTrip.setName(tripName.value)
   customTrip.setDays(sortedDays)
+  customTrip.setFirstDay(firstDay)
+  customTrip.setLastDay(lastDay)
+  localStorage.setItem('customTrip', JSON.stringify(customTrip.customTrip))
   router.push('/makeCustomtrip')
 }
 

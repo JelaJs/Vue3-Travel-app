@@ -4,11 +4,20 @@ import { defineStore } from 'pinia'
 export const useTripStore = defineStore('trip', () => {
   const customTrip = ref({
     customName: '',
-    days: [9, 10, 11, 12, 13],
-    dayContent: {}
+    days: [],
+    dayContent: {},
+    firstDay: '',
+    lastDay: '',
+    curDay: 0,
+    accomodation: ''
   })
+
+  if (localStorage.getItem('customTrip')) {
+    customTrip.value = JSON.parse(localStorage.getItem('customTrip'))
+  }
+
   const modalOpen = ref(false)
-  const curDay = ref(0)
+  //const curDay = ref(0)
 
   function setName(nameT) {
     customTrip.value.customName = nameT
@@ -16,8 +25,16 @@ export const useTripStore = defineStore('trip', () => {
 
   function setDays(days) {
     customTrip.value.days = days
-    console.log(customTrip.value)
+    //console.log(customTrip.value)
   }
 
-  return { customTrip, setName, setDays, modalOpen, curDay }
+  function setFirstDay(date) {
+    customTrip.value.firstDay = date
+  }
+
+  function setLastDay(date) {
+    customTrip.value.lastDay = date
+  }
+
+  return { customTrip, setName, setDays, modalOpen, setFirstDay, setLastDay }
 })
