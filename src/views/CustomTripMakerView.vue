@@ -35,6 +35,7 @@
             </div>
           </div>
         </div>
+
         <div class="right">
           <div class="days">
             <h3>{{ customTrip.customTrip.customName }}</h3>
@@ -42,7 +43,7 @@
               class="day-btn"
               v-for="(day, i) in customTrip.customTrip.days"
               :key="i"
-              @click="setCurDay(i)"
+              @click="setCurDay(i, $event)"
             >
               Day {{ i < 10 ? `0${i + 1}` : i + 1 }}
             </button>
@@ -73,17 +74,32 @@
           </div>
         </div>
       </div>
-      <!--ispisi logiku za save, da sacuvan objekat u localST, i da posaljem na xano-->
-      <button>Save</button>
+      <button @click="tripPopup = true">Submit</button>
+      <p>
+        When you submit, after some time you will be contacted via an e-mail address, with the best
+        offer for your interests
+      </p>
+      <div class="trip-popup" v-if="tripPopup">
+        <div class="content-box">
+          <p class="p-head">Are you sure you want to submit?</p>
+          <p class="p-text">Once you submit, your trip idea will be sent and can't be changed</p>
+          <button class="submit" @click="createTrip">Submit</button>
+          <button @click="tripPopup = false">Cancel</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useTripStore } from '@/stores/customTrip'
 import { fetchData } from '../globalFunc/apiCallfunc.js'
+import { useLoginStore } from '@/stores/login'
 
+let authTokenStore = localStorage.getItem('authToken')
+const router = useRouter()
 const customTrip = useTripStore()
 //const dayActive = ref(0)
 const category = ref('activities')
@@ -95,6 +111,11 @@ const dropContainer = ref(null)
 const timeOutEls = ref(null)
 const isDraggedOver = ref(false)
 const draggableEl = ref(null)
+const tripPopup = ref(false)
+
+if (!authTokenStore) {
+  router.push('/login')
+}
 
 const innerObj = customTrip.customTrip.days.reduce((acc, currentValue, index) => {
   // Dodavanje novog svojstva u objekat, gde će ključ biti indeks elementa, a vrednost će biti prazan niz
@@ -103,12 +124,15 @@ const innerObj = customTrip.customTrip.days.reduce((acc, currentValue, index) =>
 }, {})
 
 customTrip.customTrip.dayContent = innerObj
-const setCurDay = (curDay) => {
+const setCurDay = (curDay, e) => {
+  let btns = [...document.querySelectorAll('.day-btn')]
   //dayActive.value = curDay
+  btns.forEach((btn) => btn.classList.remove('curDay'))
+  e.target.classList.add('curDay')
   customTrip.customTrip.curDay = curDay
   dropContainer.value = document.querySelector(`#activity${customTrip.customTrip.curDay}`)
   dragFunctionEls(dropContainer.value)
-  //console.log(dropContainer.value)
+  //console.log(btns)
 }
 
 const setCategory = (cat, e) => {
@@ -170,6 +194,39 @@ const removeItem = (content) => {
   )
 
   customTrip.customTrip.dayContent[customTrip.customTrip.curDay].splice(index, 1)
+}
+
+const createTrip = async () => {
+  customTrip.customTrip.isSaved = true
+
+  try {
+    let formData = new FormData()
+    formData.append('name', customTrip.customTrip.customName)
+    formData.append('duration', customTrip.customTrip.days.length)
+    formData.append('accType', customTrip.customTrip.accomodation)
+    formData.append('isSaved', customTrip.customTrip.isSaved)
+    formData.append('daysActivities', JSON.stringify(customTrip.customTrip.dayContent))
+    /* const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    }*/
+
+    const response = await fetch('https://x8ki-letl-twmt.n7.xano.io/api:GC_IgfR7/customtrip', {
+      method: 'POST',
+      body: formData
+    })
+    const data = await response.json()
+    console.log(data)
+  } catch (err) {
+    console.error(err)
+  }
+
+  localStorage.removeItem('customTrip')
+  tripPopup.value = false
+  router.push('/yourtrip')
 }
 
 onMounted(async () => {
@@ -252,6 +309,10 @@ onMounted(async () => {
       cursor: pointer;
       margin-right: 2rem;
       font-size: 1.6rem;
+      color: #00000096;
+    }
+
+    .day-btn.curDay {
       color: #000;
     }
   }
@@ -316,6 +377,50 @@ onMounted(async () => {
     bottom: 5px;
     left: 50%;
     transform: translate(-50%);
+  }
+
+  .trip-popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000075;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .content-box {
+      background-color: #fff;
+      padding: 3rem;
+
+      .p-head {
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+
+      .p-text {
+        margin-bottom: 3rem;
+      }
+
+      button.submit {
+        color: rgb(184, 33, 33);
+      }
+    }
+  }
+  button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-right: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
   }
 }
 </style>

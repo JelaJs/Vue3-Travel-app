@@ -29,9 +29,11 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { RouterLink, RouterView } from 'vue-router'
 import { useLoginStore } from '@/stores/login'
 
+const router = useRouter()
 const loginG = useLoginStore()
 let authTokenStore = localStorage.getItem('authToken')
 
@@ -42,6 +44,7 @@ if (authTokenStore) {
 const logout = () => {
   localStorage.removeItem('authToken')
   loginG.authToken = null
+  router.push('/')
 }
 </script>
 

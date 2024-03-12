@@ -39,6 +39,7 @@ const clDate = () => {
   customTrip.setFirstDay(firstDay)
   customTrip.setLastDay(lastDay)
   localStorage.setItem('customTrip', JSON.stringify(customTrip.customTrip))
+  customTrip.modalOpen = false
   router.push('/makeCustomtrip')
 }
 

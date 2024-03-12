@@ -1,10 +1,12 @@
 <template>
   <div class="custom-trip-wrap">
     <div v-if="loginG.authToken">
-      <p class="no-trips-p">No trips yet...</p>
-      <div class="make-trip-wrap">
-        <p class="make-trip-p">Make Your Trip</p>
-        <button @click="openModal">+</button>
+      <div>
+        <p class="no-trips-p">No trips yet...</p>
+        <div class="make-trip-wrap">
+          <p class="make-trip-p">Make Your Trip</p>
+          <button @click="openModal">+</button>
+        </div>
       </div>
     </div>
     <div v-if="!loginG.authToken">
@@ -70,6 +72,14 @@ const openModal = () => {
     button:hover {
       border: 1px solid #444444;
     }
+  }
+
+  a {
+    color: blue;
+    font-size: 1.8rem;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 2rem;
   }
 }
 </style>

@@ -9,7 +9,8 @@ export const useTripStore = defineStore('trip', () => {
     firstDay: '',
     lastDay: '',
     curDay: 0,
-    accomodation: ''
+    accomodation: 'Cabins',
+    isSaved: false
   })
 
   if (localStorage.getItem('customTrip')) {
