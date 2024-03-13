@@ -7,12 +7,12 @@
         <p class="acc-page-desc">{{ accData.description }}</p>
         <div class="acc-page-imgs-wrap">
           <img
-            v-if="weather === 'winter'"
+            v-show="weather === 'winter'"
             :src="accData.image_winter.url"
             alt="Accomodation winter image"
           />
           <img
-            v-if="weather === 'summer'"
+            v-show="weather === 'summer'"
             :src="accData.image_summer.url"
             alt="Accomodation summer image"
           />
@@ -50,6 +50,7 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -60,6 +61,7 @@ import { fetchAccData } from '../globalFunc/singleAccfunc'
 import { fetchData } from '../globalFunc/apiCallfunc'
 import { useRouter } from 'vue-router'
 import { useBookmarkStore } from '../stores/bookmarks.js'
+import Footer from '../components/FooterComp.vue'
 
 const route = useRoute()
 const id = ref(route.params.id)

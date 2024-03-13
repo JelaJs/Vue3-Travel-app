@@ -10,12 +10,12 @@
       </p>
       <div class="imgs-wrap">
         <img
-          v-if="weather === 'summer'"
+          v-show="weather === 'summer'"
           src="../assets/accomodationPageImgs/summer.jpg"
           alt="Accomodation summer image"
         />
         <img
-          v-if="weather === 'winter'"
+          v-show="weather === 'winter'"
           src="../assets/accomodationPageImgs/winter.jpg"
           alt="Accomodation winter image"
         />

@@ -2,12 +2,14 @@
   <div class="trip-idea">
     <SingleTripHero />
     <SingleTripDays />
+    <Footer />
   </div>
 </template>
 
 <script setup>
 import SingleTripHero from '../components/SingleTripIdeaHero.vue'
 import SingleTripDays from '../components/SingleTripIdeasDays.vue'
+import Footer from '../components/FooterComp.vue'
 </script>
 
 <style scoped lang="scss"></style>

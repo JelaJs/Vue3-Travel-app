@@ -1,39 +1,42 @@
 <template>
-  <div class="single-activity">
-    <div class="single-activity-hero">
-      <div v-if="thingData" class="container">
-        <h1>{{ thingData.name }}</h1>
-        <p class="hero-desc">{{ thingData.description }}</p>
-        <div class="hero-img-wrap">
-          <img :src="thingData.image.url" />
+  <div>
+    <div class="single-activity">
+      <div class="single-activity-hero">
+        <div v-if="thingData" class="container">
+          <h1>{{ thingData.name }}</h1>
+          <p class="hero-desc">{{ thingData.description }}</p>
+          <div class="hero-img-wrap">
+            <img :src="thingData.image.url" />
+          </div>
         </div>
       </div>
-    </div>
 
-    <div v-if="thingData" class="activities-section">
-      <div class="container">
-        <p class="section-headers">Activities</p>
-        <div class="activities-grid">
-          <div v-for="activity in thingData.activities" :key="activity.name">
-            <div class="img-wrap">
-              <img :src="activity.image.url" />
-            </div>
-            <div class="content-wrap">
-              <p class="act-name">{{ activity.name }}</p>
-              <p v-if="activity.phone"><span>Phone:</span> {{ activity.phone }}</p>
-              <p v-if="activity.durationFrom">
-                <span>Duration:</span> {{ activity.durationFrom }}h - {{ activity.durationTo }}h
-              </p>
-              <p v-if="activity.difficulty"><span>Difficulty:</span> {{ activity.difficulty }}</p>
-              <p v-if="activity.whenFrom">
-                <span>When:</span> {{ activity.whenFrom }} - {{ activity.whenTo }}
-              </p>
-              <p v-if="activity.street"><span>Location:</span> {{ activity.street }}</p>
+      <div v-if="thingData" class="activities-section">
+        <div class="container">
+          <p class="section-headers">Activities</p>
+          <div class="activities-grid">
+            <div v-for="activity in thingData.activities" :key="activity.name">
+              <div class="img-wrap">
+                <img :src="activity.image.url" />
+              </div>
+              <div class="content-wrap">
+                <p class="act-name">{{ activity.name }}</p>
+                <p v-if="activity.phone"><span>Phone:</span> {{ activity.phone }}</p>
+                <p v-if="activity.durationFrom">
+                  <span>Duration:</span> {{ activity.durationFrom }}h - {{ activity.durationTo }}h
+                </p>
+                <p v-if="activity.difficulty"><span>Difficulty:</span> {{ activity.difficulty }}</p>
+                <p v-if="activity.whenFrom">
+                  <span>When:</span> {{ activity.whenFrom }} - {{ activity.whenTo }}
+                </p>
+                <p v-if="activity.street"><span>Location:</span> {{ activity.street }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -41,6 +44,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { fetchData } from '../globalFunc/apiCallfunc'
+import Footer from '../components/FooterComp.vue'
 
 const route = useRoute()
 const id = ref(route.params.id)

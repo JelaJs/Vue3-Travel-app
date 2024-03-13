@@ -16,7 +16,6 @@
         <div class="left">
           <h2>{{ tripData.name }}</h2>
           <p>{{ tripData.desc }}</p>
-          <button>Save To My Trips</button>
         </div>
         <div class="right">
           <div>

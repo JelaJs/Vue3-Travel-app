@@ -17,6 +17,11 @@
         <div class="signup-box">
           Don't have account? <RouterLink to="/signup">Sign up</RouterLink>
         </div>
+        <div class="demo-box">
+          <p class="demo-header">Demo account:</p>
+          <p>Email: niko@nikolic.com</p>
+          <p>Password: 12345678a</p>
+        </div>
       </div>
     </div>
   </div>
@@ -85,9 +90,20 @@ const submitForm = async () => {
 
   .signup-box {
     margin-top: 1rem;
+    margin-bottom: 3rem;
 
     a {
       color: blue;
+    }
+  }
+
+  .demo-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .demo-header {
+      font-weight: 600;
     }
   }
 

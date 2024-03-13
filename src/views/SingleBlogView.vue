@@ -1,16 +1,19 @@
 <template>
-  <div class="blog-section">
-    <div v-if="blogData" class="container">
-      <h1 class="blog-header">{{ blogData.name }}</h1>
-      <p class="date">{{ blogData.date }}</p>
-      <img :src="blogData.blogImg.url" alt="Current blog image" />
-      <div class="exp-wrap">
-        <p class="short-desc">{{ blogData.shortDesc }}</p>
-        <h3 class="exp-header">{{ blogData.blogExpirience.title }}</h3>
-        <p class="exp-desc">{{ blogData.blogExpirience.description }}</p>
-        <img :src="blogData.blogExpirience.expImg.url" alt="Single blog expiriance image" />
+  <div>
+    <div class="blog-section">
+      <div v-if="blogData" class="container">
+        <h1 class="blog-header">{{ blogData.name }}</h1>
+        <p class="date">{{ blogData.date }}</p>
+        <img :src="blogData.blogImg.url" alt="Current blog image" />
+        <div class="exp-wrap">
+          <p class="short-desc">{{ blogData.shortDesc }}</p>
+          <h3 class="exp-header">{{ blogData.blogExpirience.title }}</h3>
+          <p class="exp-desc">{{ blogData.blogExpirience.description }}</p>
+          <img :src="blogData.blogExpirience.expImg.url" alt="Single blog expiriance image" />
+        </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -18,6 +21,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { fetchData } from '../globalFunc/apiCallfunc'
+import Footer from '../components/FooterComp.vue'
 
 const route = useRoute()
 const id = ref(route.params.id)

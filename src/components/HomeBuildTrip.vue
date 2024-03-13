@@ -9,12 +9,21 @@
           <p class="build-desc">
             Plan and build out your dream vacation to Banff and Lake Louise with the Trip Builder.
           </p>
-          <button class="build-btn">Build Your Trip</button>
+          <button class="build-btn" @click="goToBuildPage">Build Your Trip</button>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+const goToBuildPage = () => {
+  router.push('/yourtrip')
+}
+</script>
 
 <style scoped lang="scss">
 .home-build-section {
@@ -38,7 +47,8 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 100%;
+    height: 84.2rem;
+    border-radius: 10px;
     background-color: #0000003a;
   }
 
