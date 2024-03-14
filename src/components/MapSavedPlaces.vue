@@ -1,16 +1,16 @@
 <template>
   <div class="saved-places-wrap">
     <div class="close-btn-wrap">
-      <button class="close-modal">X</button>
+      <button @click="mapSavedPlaces.isModalOpen = false" class="close-modal">X</button>
     </div>
-    <P v-if="mapSavedPlaces.savedPlaces.length === 0">No places yet...</P>
-    <ul v-if="mapSavedPlaces.savedPlaces.length > 0">
+    <P v-show="mapSavedPlaces.savedPlaces.length === 0">No places yet...</P>
+    <ul v-show="mapSavedPlaces.savedPlaces.length > 0">
       <li v-for="place in mapSavedPlaces.savedPlaces" :key="place.place_id">
         <div>
           <p class="hotel-name">{{ place.name }}</p>
         </div>
         <a v-if="place.website" :href="place.website" target="_blank">Visit website</a>
-        <button @click="removePlace(place)">Delete</button>
+        <button @click="removePlace(place)">Remove</button>
       </li>
     </ul>
   </div>
@@ -44,10 +44,9 @@ function checkSingleSaved(obj, array2) {
   let foundInArray2 = array2.find((obj2) => obj2.name === obj.name)
 
   if (foundInArray2) {
-    foundInArray2.isSaved = true
-    console.log(foundInArray2.isSaved)
-  } else {
     foundInArray2.isSaved = false
+  } else {
+    foundInArray2.isSaved = true
   }
 }
 </script>

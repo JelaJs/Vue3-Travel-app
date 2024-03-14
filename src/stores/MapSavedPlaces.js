@@ -4,11 +4,11 @@ import { defineStore } from 'pinia'
 export const useMapSavedPlaces = defineStore('mapSavedPlaces', () => {
   const savedPlacesStore = localStorage.getItem('savedMapPlaces') || []
   const savedPlaces = ref([])
-  const mapPlaces = ref([])
+  const isModalOpen = ref(false)
 
   if (savedPlacesStore.length > 0) {
     savedPlaces.value = JSON.parse(savedPlacesStore)
   }
 
-  return { savedPlaces, mapPlaces }
+  return { savedPlaces, isModalOpen }
 })
