@@ -23,13 +23,16 @@
               <p class="hotel-name">{{ place.name }}</p>
             </div>
             <a v-if="place.website" :href="place.website" target="_blank">Visit website</a>
-            <button @click="addToFavorites(place)">Add to favorites</button>
+            <button v-if="!place.isSaved" @click.stop="addToFavorites(place)">
+              Add to favorites
+            </button>
+            <button v-if="place.isSaved" @click="removePlace(place)">Remove</button>
           </li>
         </ul>
       </div>
       <div id="map"></div>
     </div>
-    <MapSavedPlaces />
+    <MapSavedPlaces :mapPalces="mapPalces" />
   </div>
 </template>
 
@@ -37,10 +40,11 @@
 /* eslint-disable no-undef */
 import { onMounted, ref } from 'vue'
 import MapSavedPlaces from '../components/MapSavedPlaces.vue'
+import { useMapSavedPlaces } from '@/stores/MapSavedPlaces'
 
+const mapSavedPlaces = useMapSavedPlaces()
 let service = null
 const mapPalces = ref([])
-const savedPlaces = ref([])
 
 const showMap = (lat, lng) => {
   let map = new google.maps.Map(document.getElementById('map'), {
@@ -78,6 +82,7 @@ const setEventListener = (map) => {
     }
 
     mapPalces.value = []
+    //mapSavedPlaces.mapPlaces = []
     service = new google.maps.places.PlacesService(map)
     service.nearbySearch(request, callback)
     //showMap(lat, lng)
@@ -95,6 +100,8 @@ function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           //console.log(place)
           mapPalces.value.push(place)
+          //mapSavedPlaces.mapPlaces.push(place)
+          checkIfSaved(mapPalces.value, mapSavedPlaces.savedPlaces)
         } else {
           console.error('Something went wrong:', status)
         }
@@ -139,9 +146,54 @@ function showMarker(place) {
 }
 
 const addToFavorites = (place) => {
-  savedPlaces.value.push(place)
-  localStorage.setItem('savedMapPlaces', JSON.stringify(savedPlaces.value))
-  console.log(savedPlaces.value)
+  // Filter out deprecated properties
+  const filteredPlace = { ...place }
+  delete filteredPlace.open_now
+  delete filteredPlace.utc_offset
+  delete filteredPlace.utc_offset_minutes
+
+  // Add filtered place to favorites
+  mapSavedPlaces.savedPlaces.push(filteredPlace)
+
+  // Update localStorage
+  localStorage.setItem('savedMapPlaces', JSON.stringify(mapSavedPlaces.savedPlaces))
+  checkSingleSaved(place, mapSavedPlaces.savedPlaces)
+
+  //console.log(filteredPlace)
+}
+
+const checkIfSaved = (array1, array2) => {
+  array1.forEach((obj1) => {
+    // Provera da li se ime objekta nalazi u array2
+    let foundInArray2 = array2.some((obj2) => obj2.name === obj1.name)
+
+    if (foundInArray2) {
+      // Dodavanje ili ažuriranje ključa isSaved u zavisnosti od uslova
+      obj1.isSaved = true
+      //console.log('sadrzi')
+    } else {
+      obj1.isSaved = false
+      //console.log('Ne sadrzi')
+    }
+  })
+}
+
+function checkSingleSaved(obj, array2) {
+  let foundInArray2 = array2.some((obj2) => obj2.name === obj.name)
+
+  if (foundInArray2) {
+    obj.isSaved = true
+  } else {
+    obj.isSaved = false
+  }
+}
+
+const removePlace = (place) => {
+  const index = mapSavedPlaces.savedPlaces.findIndex((el) => el.place_id === place.place_id)
+  mapSavedPlaces.savedPlaces.splice(index, 1)
+  localStorage.setItem('savedMapPlaces', JSON.stringify(mapSavedPlaces.savedPlaces))
+
+  checkSingleSaved(place, mapSavedPlaces.savedPlaces)
 }
 
 onMounted(() => {
@@ -153,6 +205,7 @@ onMounted(() => {
 
     showMap(lat, lng)
     mapPalces.value = []
+    //mapSavedPlaces.mapPlaces = []
   })
 
   let mapElement = document.getElementById('map')
