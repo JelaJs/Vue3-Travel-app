@@ -74,7 +74,7 @@
           </div>
         </div>
       </div>
-      <button @click="tripPopup = true">Submit</button>
+      <button class="submit-btn" @click="tripPopup = true">Submit</button>
       <p>
         When you submit, after some time you will be contacted via an e-mail address, with the best
         offer for your interests
@@ -96,7 +96,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTripStore } from '@/stores/customTrip'
 import { fetchData } from '../globalFunc/apiCallfunc.js'
-import { useLoginStore } from '@/stores/login'
+//import { useLoginStore } from '@/stores/login'
 
 let authTokenStore = localStorage.getItem('authToken')
 const router = useRouter()
@@ -199,6 +199,12 @@ const removeItem = (content) => {
 const createTrip = async () => {
   customTrip.customTrip.isSaved = true
 
+  const isEmpty = Object.values(customTrip.customTrip.dayContent).every(
+    (value) => value.length === 0
+  )
+
+  if (isEmpty) return
+
   try {
     let formData = new FormData()
     formData.append('name', customTrip.customTrip.customName)
@@ -230,6 +236,8 @@ const createTrip = async () => {
 }
 
 onMounted(async () => {
+  customTrip.customTrip.curDay = 0
+  console.log(customTrip.customTrip.curDay)
   clearTimeout(timeOutEls.value)
 
   fetchData(activApi, activities, activitiesErr)
@@ -421,6 +429,18 @@ onMounted(async () => {
     margin-top: 2rem;
     margin-bottom: 1rem;
     cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .submit-btn {
+    background-color: white;
+    padding: 1.5rem 3rem;
+    border-radius: 100px;
+  }
+
+  .submit-btn:hover {
+    background-color: #000;
+    color: #fff;
   }
 }
 </style>

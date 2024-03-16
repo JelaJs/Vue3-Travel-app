@@ -64,6 +64,7 @@ onMounted(async () => {
       height: 100%;
       object-fit: cover;
       border-radius: 10px;
+      cursor: grab;
     }
   }
 

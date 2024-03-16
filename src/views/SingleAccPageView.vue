@@ -1,56 +1,65 @@
 <template>
   <div>
-    <div class="singleAcc-page-hero">
-      <div v-if="accData" class="container">
-        <button class="home-btn" @click="goHome">← Home</button>
-        <h1 class="acc-page-header">{{ accData.name }}</h1>
-        <p class="acc-page-desc">{{ accData.description }}</p>
-        <div class="acc-page-imgs-wrap">
-          <img
-            v-show="weather === 'winter'"
-            :src="accData.image_winter.url"
-            alt="Accomodation winter image"
-          />
-          <img
-            v-show="weather === 'summer'"
-            :src="accData.image_summer.url"
-            alt="Accomodation summer image"
-          />
-          <div v-if="accData.image_summer !== null" class="btns-wrap">
-            <button class="btn-summer" @click="changeWeather('summer')">Summer</button>
-            <button class="btn-winter active" @click="changeWeather('winter')">Winter</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-if="accData" class="single-accs-section">
-      <div class="container">
-        <p class="section-headers">{{ accData.name }}</p>
-        <div class="grid">
-          <div
-            v-for="acc in accomodations"
-            :key="acc.id"
-            class="acc-wrap"
-            @click="goToSingleAcc(acc.id)"
-          >
-            <div class="img-inner-wrap">
-              <img :src="acc.image.url" alt="Accomodations images" />
-              <button v-if="!acc.isSaved" class="btn-save" @click.stop="addToBookmarks(acc)">
-                +
-              </button>
-              <button v-if="acc.isSaved" class="btn-remove" @click.stop="removeFromBookmarks(acc)">
-                -
-              </button>
-            </div>
-            <div class="content-inner-wrap">
-              <p class="acc-type">{{ acc.type }}</p>
-              <p class="acc-name">{{ acc.name }}</p>
+    <div v-show="pageLoaded">
+      <div class="singleAcc-page-hero">
+        <div v-if="accData" class="container">
+          <button class="home-btn" @click="goHome">← Home</button>
+          <h1 class="acc-page-header">{{ accData.name }}</h1>
+          <p class="acc-page-desc">{{ accData.description }}</p>
+          <div class="acc-page-imgs-wrap">
+            <img
+              v-show="weather === 'winter'"
+              :src="accData.image_winter.url"
+              alt="Accomodation winter image"
+            />
+            <data v-if="accData.image_summer !== null">
+              <img
+                v-show="weather === 'summer'"
+                :src="accData.image_summer.url"
+                alt="Accomodation summer image"
+              />
+            </data>
+            <div v-if="accData.image_summer !== null" class="btns-wrap">
+              <button class="btn-summer" @click="changeWeather('summer')">Summer</button>
+              <button class="btn-winter active" @click="changeWeather('winter')">Winter</button>
             </div>
           </div>
         </div>
       </div>
+      <div v-if="accData" class="single-accs-section">
+        <div class="container">
+          <p class="section-headers">{{ accData.name }}</p>
+          <div class="grid">
+            <div
+              v-for="acc in accomodations"
+              :key="acc.id"
+              class="acc-wrap"
+              @click="goToSingleAcc(acc.id)"
+            >
+              <div class="img-inner-wrap">
+                <img :src="acc.image.url" alt="Accomodations images" />
+                <button v-if="!acc.isSaved" class="btn-save" @click.stop="addToBookmarks(acc)">
+                  +
+                </button>
+                <button
+                  v-if="acc.isSaved"
+                  class="btn-remove"
+                  @click.stop="removeFromBookmarks(acc)"
+                >
+                  -
+                </button>
+              </div>
+              <div class="content-inner-wrap">
+                <p class="acc-type">{{ acc.type }}</p>
+                <p class="acc-name">{{ acc.name }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
     </div>
-    <Footer />
+    <PagePreloader v-show="!pageLoaded" />
   </div>
 </template>
 
@@ -62,6 +71,7 @@ import { fetchData } from '../globalFunc/apiCallfunc'
 import { useRouter } from 'vue-router'
 import { useBookmarkStore } from '../stores/bookmarks.js'
 import Footer from '../components/FooterComp.vue'
+import PagePreloader from '@/components/PagePreloader.vue'
 
 const route = useRoute()
 const id = ref(route.params.id)
@@ -74,6 +84,7 @@ const accomodations = ref(null)
 const accomodationsError = ref(null)
 const router = useRouter()
 const bookmark = useBookmarkStore()
+const pageLoaded = ref(false)
 
 const goHome = () => {
   router.push('/')
@@ -111,6 +122,10 @@ const removeFromBookmarks = (acc) => {
 }
 
 onMounted(async () => {
+  setTimeout(() => {
+    pageLoaded.value = true
+  }, 1000)
+
   await fetchAccData(apiUrl, accData, nameLink, errorData)
   const apiUrlAccs = `https://x8ki-letl-twmt.n7.xano.io/api:GC_IgfR7/${nameLink.value}`
   await fetchData(apiUrlAccs, accomodations, accomodationsError)

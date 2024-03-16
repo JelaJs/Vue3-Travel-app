@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="single-acc-review">
+    <div class="single-acc-review" v-show="pageLoaded">
       <div v-if="singleAccData" class="container">
         <img :src="singleAccData.image.url" alt="Single acomodation image" />
         <button class="btn-home" @click="goToHome">← Home</button>
@@ -39,6 +39,7 @@
         </div>
       </div>
     </div>
+    <PagePreloader v-show="!pageLoaded" />
     <Footer />
   </div>
 </template>
@@ -50,6 +51,7 @@ import { fetchData } from '../globalFunc/apiCallfunc'
 import { fetchAccData } from '../globalFunc/singleAccfunc'
 import { useBookmarkStore } from '../stores/bookmarks.js'
 import Footer from '../components/FooterComp.vue'
+import PagePreloader from '@/components/PagePreloader.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -62,6 +64,7 @@ const nameLink = ref(null)
 const singleAccData = ref(null)
 const singleAccErr = ref(null)
 const bookmark = useBookmarkStore()
+const pageLoaded = ref(false)
 
 const goToHome = () => {
   router.push('/')
@@ -86,6 +89,9 @@ onMounted(async () => {
   const singleAccUrl = `https://x8ki-letl-twmt.n7.xano.io/api:GC_IgfR7/${nameLink.value}/${number.value}`
   await fetchData(singleAccUrl, singleAccData, singleAccErr)
   bookmark.modifyObj(singleAccData.value, bookmark.bookmarks)
+  setTimeout(() => {
+    pageLoaded.value = true
+  }, 1000)
 })
 </script>
 

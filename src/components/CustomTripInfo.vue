@@ -8,6 +8,7 @@
       <input v-model="tripName" name="title" class="titleInput" placeholder="Eg. Summer Vacation" />
       <p class="customTr-pick">Pick a date:</p>
       <VueDatePicker v-model="date" multi-dates></VueDatePicker>
+      <p class="errorMsg" v-show="errorMsg !== ''">{{ errorMsg }}</p>
       <button class="createTr-btn" @click="clDate">Create</button>
     </div>
   </div>
@@ -24,8 +25,15 @@ const date = ref([])
 const tripName = ref('')
 const customTrip = useTripStore()
 const router = useRouter()
+const errorMsg = ref('')
 
 const clDate = () => {
+  if (date.value.length === 0) {
+    errorMsg.value = 'You must select the days you want to stay'
+    return
+  }
+
+  errorMsg.value = ''
   let dateArr = Array.from(date.value)
   let daysArr = dateArr.map((el) => el.getDate())
   let firstDay = `${dateArr[0].getDate()}-${dateArr[0].getMonth() + 1}-${dateArr[0].getFullYear()}`
@@ -102,6 +110,11 @@ const closeModal = () => {
       outline: none;
       border-radius: 10px;
       border: 1px solid #ccc;
+    }
+
+    .errorMsg {
+      color: rgb(201, 46, 46);
+      margin-top: 1rem;
     }
 
     .createTr-btn {

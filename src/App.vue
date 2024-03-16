@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="logo-nav-wrap">
-      <h2>Logo</h2>
+      <h2><RouterLink to="/">LOGO</RouterLink></h2>
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
@@ -12,8 +12,8 @@
 
     <div class="build-and-find">
       <nav>
-        <RouterLink to="/explore">Find Hotel</RouterLink>
         <RouterLink to="/yourtrip">Your Trip</RouterLink>
+        <RouterLink to="/explore">Find Hotel</RouterLink>
         <div v-show="!loginG.authToken">
           <RouterLink to="/login">Login</RouterLink>
         </div>
@@ -24,7 +24,11 @@
     </div>
   </header>
 
-  <RouterView />
+  <RouterView v-slot="{ Component }">
+    <Transition name="page" mode="out-in">
+      <component :is="Component" />
+    </Transition>
+  </RouterView>
 </template>
 
 <script setup>
@@ -62,6 +66,10 @@ header {
   right: 0;
   left: 0;
 
+  h2 {
+    cursor: pointer;
+  }
+
   .logo-nav-wrap {
     display: flex;
     align-items: center;
@@ -82,5 +90,16 @@ header {
     font-size: 1.6rem;
     cursor: pointer;
   }
+}
+
+/**Transition animation */
+.page-enter-active,
+.page-leave-active {
+  transition: 400ms ease all;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
 }
 </style>
