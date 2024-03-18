@@ -47,7 +47,7 @@ const goToBuildPage = () => {
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 84.2rem;
+    height: 100%;
     border-radius: 10px;
     background-color: #0000003a;
   }
@@ -85,6 +85,49 @@ const goToBuildPage = () => {
   .build-btn:hover {
     background-color: rgb(163, 163, 197);
     color: white;
+  }
+}
+
+/**Responsive */
+@media (max-width: 1400px) {
+  .home-build-section .build-header {
+    font-size: 5.4rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .home-build-section .build-header {
+    font-size: 4.2rem;
+  }
+}
+
+@media (max-width: 840px) {
+  .home-build-section .build-header {
+    font-size: 3.2rem;
+  }
+
+  .home-build-section .build-desc {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 630px) {
+  .home-build-section .build-header {
+    font-size: 2.3rem;
+  }
+
+  .home-build-section .build-desc {
+    font-size: 1.4rem;
+  }
+
+  .home-build-section .build-btn {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-build-section .build-desc {
+    display: none;
   }
 }
 </style>

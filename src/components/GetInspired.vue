@@ -85,4 +85,29 @@ onMounted(async () => {
     }
   }
 }
+
+/**Responsive */
+@media (max-width: 1400px) {
+  .home-get-section {
+    padding-top: 12rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .home-get-section .trip-flex {
+    gap: 1rem;
+  }
+
+  .home-get-section .trip-flex .trip-name {
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 630px) {
+  .home-get-section .trip-flex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
 </style>

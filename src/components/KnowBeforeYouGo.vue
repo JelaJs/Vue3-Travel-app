@@ -29,7 +29,9 @@ const router = useRouter()
 const box = ref(null)
 const hoverp = ref(null)
 const spanContent = ref('>')
+
 const boxContent = () => {
+  if (window.innerWidth < 960) return
   box.value.style.backgroundColor = '#a3a3c5'
   box.value.style.color = 'white'
   hoverp.value.style.opacity = '1'
@@ -91,6 +93,36 @@ onMounted(() => {
   .learn-more {
     font-weight: 600;
     font-size: 1.4rem;
+  }
+}
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .home-know-section .content-box {
+    width: 36rem;
+    height: 18rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .home-know-section .content-box {
+    width: 32rem;
+    height: 16rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .home-know-section .content-box {
+    width: 26rem;
+    height: 13rem;
+
+    .home-know-section .box-header {
+      font-size: 1.6rem;
+    }
+
+    .home-know-section .learn-more {
+      font-size: 1.2rem;
+    }
   }
 }
 </style>

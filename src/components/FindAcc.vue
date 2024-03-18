@@ -72,4 +72,23 @@ onMounted(async () => {
     }
   }
 }
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .home-find-section .acc-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .home-find-section .acc-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .home-find-section .acc-grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
