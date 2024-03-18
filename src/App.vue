@@ -12,7 +12,7 @@
 
     <div class="build-and-find">
       <nav>
-        <RouterLink to="/yourtrip">Your Trip</RouterLink>
+        <RouterLink class="build-trip-link" to="/yourtrip">Build Trip</RouterLink>
         <RouterLink to="/explore">Find Hotel</RouterLink>
         <div v-show="!loginG.authToken">
           <RouterLink to="/login">Login</RouterLink>
@@ -127,6 +127,26 @@ header {
     font-weight: 600;
     font-size: 1.6rem;
     cursor: pointer;
+  }
+
+  a {
+    transition: all 0.3s;
+  }
+
+  a:hover {
+    color: #636363;
+  }
+
+  .build-trip-link {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 100px;
+    transition: all 0.3s;
+  }
+
+  .build-trip-link:hover {
+    background-color: #000;
+    color: #fff;
   }
 }
 

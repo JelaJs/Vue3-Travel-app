@@ -101,4 +101,31 @@ onMounted(async () => {
     }
   }
 }
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .blog-section .slide-flex .blog-left .blog-header {
+    font-size: 3rem;
+  }
+
+  .blog-section .slide-flex .blog-left .blog-desc {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 770px) {
+  .blog-section .slide-flex {
+    flex-direction: column;
+  }
+
+  .blog-section .slide-flex .blog-left {
+    order: 2;
+  }
+}
+
+@media (max-width: 510px) {
+  .blog-header {
+    font-size: 2.8rem;
+  }
+}
 </style>

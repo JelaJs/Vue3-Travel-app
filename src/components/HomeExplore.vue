@@ -79,4 +79,47 @@ const goToExplorePage = () => {
     }
   }
 }
+
+/**Responsive */
+@media (max-width: 1105px) {
+  .home-explore-sec .wrap .content-wrap .head {
+    font-size: 2.6rem;
+  }
+
+  .home-explore-sec .wrap .content-wrap p {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .home-explore-sec .wrap .content-wrap {
+    padding: 1rem;
+  }
+
+  .home-explore-sec .wrap img {
+    height: 48rem;
+  }
+
+  .home-explore-sec .wrap .content-wrap .head {
+    font-size: 2rem;
+  }
+
+  .home-explore-sec .wrap .content-wrap button {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-explore-sec .wrap .content-wrap {
+    width: 30rem;
+  }
+
+  .home-explore-sec .wrap .content-wrap .head {
+    font-size: 1.8rem;
+  }
+
+  .home-explore-sec .wrap .content-wrap p {
+    font-size: 1.4rem;
+  }
+}
 </style>
