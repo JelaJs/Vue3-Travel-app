@@ -286,4 +286,29 @@ onMounted(async () => {
     }
   }
 }
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .searchBy-section .grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 960px) {
+  .searchBy-section .find-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .searchBy-section .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  .searchBy-section .grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>

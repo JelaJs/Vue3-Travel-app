@@ -72,7 +72,8 @@ const removeFromBookmarks = (acc) => {
   .bookmarks-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 2rem;
+    column-gap: 2rem;
+    row-gap: 15rem;
 
     img {
       width: 100%;
@@ -103,6 +104,30 @@ const removeFromBookmarks = (acc) => {
   .no-bookmarks-p {
     margin-top: 4rem;
     font-size: 3rem;
+  }
+}
+
+/**Responsive */
+@media (max-width: 960px) {
+  .bookmarks-page .bookmarks-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .bookmarks-page .bookmarks-grid .header {
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 630px) {
+  .bookmarks-page .bookmarks-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 416px) {
+  .bookmarks-page .bookmarks-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

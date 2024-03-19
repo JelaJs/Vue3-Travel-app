@@ -3,15 +3,22 @@
     <div class="header-input-wrap">
       <div>
         <h1>Find perfect hotel</h1>
-        <input id="autocomplete" type="text" placeholder="Search for your favorite palce..." />
+        <input
+          id="autocomplete"
+          type="text"
+          placeholder="Search for your favorite destination..."
+        />
       </div>
-      <button @click="mapSavedPlaces.isModalOpen = true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-          <path
-            d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"
-          />
-        </svg>
-      </button>
+      <div class="fav-btn-wrap">
+        <button @click="mapSavedPlaces.isModalOpen = true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm306.7 69.1L162.4 380.6c-19.4 7.5-38.5-11.6-31-31l55.5-144.3c3.3-8.5 9.9-15.1 18.4-18.4l144.3-55.5c19.4-7.5 38.5 11.6 31 31L325.1 306.7c-3.2 8.5-9.9 15.1-18.4 18.4zM288 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"
+            />
+          </svg>
+        </button>
+        <div v-show="mapSavedPlaces.savedPlaces.length > 0" class="saved-sign"></div>
+      </div>
     </div>
     <div class="flex">
       <div class="menu">
@@ -41,7 +48,9 @@
       </div>
       <div id="map"></div>
     </div>
-    <MapSavedPlaces v-if="mapSavedPlaces.isModalOpen" :mapPalces="mapPalces" />
+    <Transition name="savedPlaces" mode="out-in">
+      <MapSavedPlaces v-show="mapSavedPlaces.isModalOpen" :mapPalces="mapPalces" />
+    </Transition>
   </div>
 </template>
 
@@ -231,6 +240,7 @@ onMounted(() => {
 <style scoped lang="scss">
 .map-page {
   background-color: #f2eee9;
+  overflow-x: hidden;
 }
 
 .header-input-wrap {
@@ -241,6 +251,24 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  h1 {
+    margin-top: 2rem;
+  }
+
+  .fav-btn-wrap {
+    position: relative;
+
+    .saved-sign {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: orangered;
+      border-radius: 100%;
+      top: -8px;
+      left: -6px;
+    }
+  }
 
   button {
     border: none;
@@ -271,6 +299,10 @@ onMounted(() => {
     width: 20%;
     height: 100vh;
     overflow-y: scroll;
+
+    ul {
+      list-style: none;
+    }
 
     li {
       cursor: pointer;
@@ -319,6 +351,64 @@ onMounted(() => {
   #map {
     width: 80%;
     height: 100vh;
+  }
+}
+
+/**Transition animation */
+.savedPlaces-enter-active,
+.savedPlaces-leave-active {
+  transition: 300ms ease all;
+  /* transform: translateX(0);*/
+}
+
+.savedPlaces-enter-from,
+.savedPlaces-leave-to {
+  /* transform: translateX(100%);*/
+  opacity: 0;
+}
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .flex {
+    flex-direction: column;
+  }
+
+  .flex #map {
+    width: 100%;
+  }
+
+  .flex .menu {
+    width: 100%;
+    height: 100%;
+  }
+
+  .flex .menu ul {
+    display: flex;
+  }
+
+  .flex .menu ul li div {
+    width: 250px;
+  }
+
+  .flex .menu ul li a {
+    display: block;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 630px) {
+  .header-input-wrap h1 {
+    font-size: 2.3rem;
+  }
+
+  .header-input-wrap input {
+    width: 25rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .saved-places-wrap {
+    width: 35rem;
   }
 }
 </style>

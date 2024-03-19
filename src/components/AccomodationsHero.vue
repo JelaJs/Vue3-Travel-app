@@ -20,8 +20,12 @@
           alt="Accomodation winter image"
         />
         <div class="btns-wrap">
-          <button class="btn-summer" @click="changeWeather('summer')">Summer</button>
-          <button class="btn-winter active" @click="changeWeather('winter')">Winter</button>
+          <button class="btn-summer" @click="changeWeather('summer', $event)" value="summer">
+            Summer
+          </button>
+          <button class="btn-winter active" @click="changeWeather('winter', $event)" value="winter">
+            Winter
+          </button>
         </div>
       </div>
     </div>
@@ -32,16 +36,19 @@
 import { ref } from 'vue'
 const weather = ref('winter')
 
-const changeWeather = (weatherStr) => {
-  const btns = document.querySelectorAll('button')
-  weather.value = weatherStr
-  btns.forEach((btn) => {
-    if (!btn.classList.contains('active')) {
-      btn.classList.add('active')
-    } else {
-      btn.classList.remove('active')
-    }
-  })
+const changeWeather = (weatherStr, e) => {
+  const btnSum = document.querySelector('.btn-summer')
+  const btnWin = document.querySelector('.btn-winter')
+
+  if (e.target.value === 'summer') {
+    btnSum.classList.add('active')
+    btnWin.classList.remove('active')
+  }
+
+  if (e.target.value === 'winter') {
+    btnWin.classList.add('active')
+    btnSum.classList.remove('active')
+  }
 }
 </script>
 
@@ -101,6 +108,29 @@ const changeWeather = (weatherStr) => {
       background-color: #fff;
       color: #000;
     }
+  }
+}
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .accomodations-hero h1 {
+    font-size: 5.4rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .accomodations-hero h1 {
+    font-size: 4.1rem;
+  }
+
+  .accomodations-hero p {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 630px) {
+  .accomodations-hero h1 {
+    font-size: 3.2rem;
   }
 }
 </style>

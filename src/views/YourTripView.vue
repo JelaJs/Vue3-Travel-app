@@ -57,4 +57,27 @@ const setPage = (curPage, e) => {
     }
   }
 }
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .build-trip-section h1 {
+    font-size: 5.4rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .build-trip-section h1 {
+    font-size: 4.6rem;
+  }
+}
+
+@media (max-width: 630px) {
+  .build-trip-section h1 {
+    font-size: 3.2rem;
+  }
+
+  .build-trip-section .btn-wrapper button {
+    font-size: 1.8rem;
+  }
+}
 </style>
