@@ -138,4 +138,43 @@ onMounted(async () => {
     }
   }
 }
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .trip-days-section .days-activites h4 {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 740px) {
+  .trip-days-section .days-activites p {
+    font-size: 1.6rem;
+  }
+
+  .trip-days-section .activities-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .trip-days-section .tripdays-grid {
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+  }
+
+  .trip-days-section ul {
+    flex-direction: row;
+  }
+
+  .trip-days-section .days-activites p {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 440px) {
+  .trip-days-section .activities-wrap {
+    grid-template-columns: 1fr;
+  }
+}
 </style>

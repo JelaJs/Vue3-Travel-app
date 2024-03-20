@@ -17,7 +17,7 @@
 <script setup>
 import BookmarksPage from '@/components/BookmarksPage.vue'
 import TripsPage from '@/components/TripsPage.vue'
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
 const page = ref('bookmarks')
 

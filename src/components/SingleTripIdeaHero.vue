@@ -129,4 +129,47 @@ onMounted(async () => {
     }
   }
 }
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .hero-section .info-flex .left h2 {
+    font-size: 5.4rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-section .info-flex .left h2 {
+    font-size: 4.2rem;
+  }
+
+  .hero-section .info-flex .left p {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 740px) {
+  .hero-section .info-flex .left h2 {
+    font-size: 3.2rem;
+  }
+
+  .hero-section .info-flex {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 3rem;
+  }
+
+  .hero-section .info-flex .left {
+    width: 100%;
+  }
+
+  .hero-section .info-flex .right {
+    width: 60%;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-section .info-flex .right {
+    width: 80%;
+  }
+}
 </style>

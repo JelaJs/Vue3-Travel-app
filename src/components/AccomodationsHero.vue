@@ -43,11 +43,13 @@ const changeWeather = (weatherStr, e) => {
   if (e.target.value === 'summer') {
     btnSum.classList.add('active')
     btnWin.classList.remove('active')
+    weather.value = weatherStr
   }
 
   if (e.target.value === 'winter') {
     btnWin.classList.add('active')
     btnSum.classList.remove('active')
+    weather.value = weatherStr
   }
 }
 </script>
@@ -120,7 +122,7 @@ const changeWeather = (weatherStr, e) => {
 
 @media (max-width: 960px) {
   .accomodations-hero h1 {
-    font-size: 4.1rem;
+    font-size: 4.2rem;
   }
 
   .accomodations-hero p {
@@ -131,6 +133,12 @@ const changeWeather = (weatherStr, e) => {
 @media (max-width: 630px) {
   .accomodations-hero h1 {
     font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 570px) {
+  .accomodations-hero .btns-wrap button {
+    padding: 1rem 1rem;
   }
 }
 </style>

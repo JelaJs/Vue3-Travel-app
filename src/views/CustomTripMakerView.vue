@@ -12,17 +12,35 @@
             </button>
           </div>
           <div v-show="category === 'activities'" class="activities">
-            <div v-if="activities" class="activities-box">
-              <div
-                class="single-activity-wrap"
-                v-for="activity in activities"
-                :key="activity.id"
-                draggable="true"
-                :data-id="activity.id"
-              >
-                <img :src="activity.image.url" />
-                <p>{{ activity.name }}</p>
-              </div>
+            <div v-show="!isSmallScreen">
+              <ul v-if="activities" class="activities-box">
+                <li
+                  class="single-activity-wrap"
+                  v-for="activity in activities"
+                  :key="activity.id"
+                  draggable="true"
+                  :data-id="activity.id"
+                >
+                  <img :src="activity.image.url" />
+                  <p>{{ activity.name }}</p>
+                </li>
+              </ul>
+            </div>
+            <!--Small screen-->
+            <div v-show="isSmallScreen">
+              <ul v-if="activities" class="activities-box">
+                <li
+                  class="single-activity-wrap mobile"
+                  v-for="activity in activities"
+                  :key="activity.id"
+                  :data-id="activity.id"
+                  draggable="false"
+                  @click="addActivityToCurDay(activity)"
+                >
+                  <img :src="activity.image.url" />
+                  <p>{{ activity.name }}</p>
+                </li>
+              </ul>
             </div>
           </div>
           <div v-show="category === 'accomodations'" class="accomodations">
@@ -67,7 +85,10 @@
                     <p>{{ content.name }}</p>
                     <button class="remove-btn" @click="removeItem(content)">X</button>
                   </div>
-                  <p class="add-msg">Add Item In Marked White Space</p>
+                  <p v-show="!isSmallScreen" class="add-msg">Add Item In Marked White Space</p>
+                  <p v-show="isSmallScreen" class="add-msg">
+                    Click on activities you want to add for current day
+                  </p>
                 </div>
               </div>
             </div>
@@ -92,7 +113,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTripStore } from '@/stores/customTrip'
 import { fetchData } from '../globalFunc/apiCallfunc.js'
@@ -112,6 +133,7 @@ const timeOutEls = ref(null)
 const isDraggedOver = ref(false)
 const draggableEl = ref(null)
 const tripPopup = ref(false)
+const isSmallScreen = ref(false)
 
 if (!authTokenStore) {
   router.push('/login')
@@ -188,6 +210,12 @@ const dragFunctionEls = (dropEl) => {
   })
 }
 
+//For small screen
+const addActivityToCurDay = (activity) => {
+  console.log('Radi')
+  customTrip.customTrip.dayContent[customTrip.customTrip.curDay].push(activity)
+}
+
 const removeItem = (content) => {
   let index = customTrip.customTrip.dayContent[customTrip.customTrip.curDay].findIndex(
     (el) => el.id === content.id
@@ -235,7 +263,16 @@ const createTrip = async () => {
   router.push('/yourtrip')
 }
 
+const handleSize = () => {
+  if (window.innerWidth < 860) {
+    isSmallScreen.value = true
+  } else {
+    isSmallScreen.value = false
+  }
+}
+
 onMounted(async () => {
+  window.addEventListener('resize', handleSize)
   customTrip.customTrip.curDay = 0
   console.log(customTrip.customTrip.curDay)
   clearTimeout(timeOutEls.value)
@@ -247,6 +284,10 @@ onMounted(async () => {
   timeOutEls.value = setTimeout(() => {
     dragFunctionEls(dropContainer.value)
   }, 1000)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleSize)
 })
 </script>
 
@@ -359,6 +400,10 @@ onMounted(async () => {
     }
   }
 
+  .single-activity-wrap.mobile {
+    cursor: pointer;
+  }
+
   .custom-day-box {
     width: 100%;
     padding: 6rem 1rem;
@@ -441,6 +486,35 @@ onMounted(async () => {
   .submit-btn:hover {
     background-color: #000;
     color: #fff;
+  }
+}
+
+/**Responsive */
+@media (max-width: 859px) {
+  .customTrip-make-sec .customMake-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .customTrip-make-sec .left .acc-buttons-wrap button {
+    padding: 0;
+    margin: 0;
+  }
+
+  .customTrip-make-sec .left .acc-buttons-wrap {
+    margin-bottom: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .customTrip-make-sec .single-activity-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .customTrip-make-sec .single-activity-wrap .remove-btn {
+    top: -10px;
+    right: 0;
+    transform: translate(0, 0);
   }
 }
 </style>

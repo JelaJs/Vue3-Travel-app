@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="single-activity">
+    <div class="single-activity" v-show="pageLoaded">
       <div class="single-activity-hero">
         <div v-if="thingData" class="container">
           <h1>{{ thingData.name }}</h1>
@@ -37,6 +37,7 @@
       </div>
     </div>
     <Footer />
+    <PagePreloader v-show="!pageLoaded" />
   </div>
 </template>
 
@@ -45,6 +46,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { fetchData } from '../globalFunc/apiCallfunc'
 import Footer from '../components/FooterComp.vue'
+import PagePreloader from '@/components/PagePreloader.vue'
 
 const route = useRoute()
 const id = ref(route.params.id)
@@ -52,7 +54,13 @@ const apiUrl = `https://x8ki-letl-twmt.n7.xano.io/api:GC_IgfR7/thingstodo/${id.v
 const thingData = ref(null)
 const thingErr = ref(null)
 
+const pageLoaded = ref(false)
+
 onMounted(async () => {
+  setTimeout(() => {
+    pageLoaded.value = true
+  }, 1500)
+
   await fetchData(apiUrl, thingData, thingErr)
 })
 </script>
@@ -126,6 +134,44 @@ onMounted(async () => {
         }
       }
     }
+  }
+}
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .single-activity .single-activity-hero h1 {
+    font-size: 5.4rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .single-activity .single-activity-hero h1 {
+    font-size: 4.2rem;
+  }
+
+  .single-activity .single-activity-hero .hero-desc {
+    font-size: 1.6rem;
+  }
+
+  .single-activity .activities-section .activities-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 740px) {
+  .single-activity .activities-section .activities-grid {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 4rem;
+  }
+
+  .single-activity .single-activity-hero h1 {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .single-activity .activities-section .activities-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

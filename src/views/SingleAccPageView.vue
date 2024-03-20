@@ -20,8 +20,16 @@
               />
             </data>
             <div v-if="accData.image_summer !== null" class="btns-wrap">
-              <button class="btn-summer" @click="changeWeather('summer')">Summer</button>
-              <button class="btn-winter active" @click="changeWeather('winter')">Winter</button>
+              <button class="btn-summer" @click="changeWeather('summer', $event)" value="summer">
+                Summer
+              </button>
+              <button
+                class="btn-winter active"
+                @click="changeWeather('winter', $event)"
+                value="winter"
+              >
+                Winter
+              </button>
             </div>
           </div>
         </div>
@@ -94,16 +102,21 @@ const goToSingleAcc = (number) => {
   router.push(`/singleacc/${id.value}/${number}`)
 }
 
-const changeWeather = (weatherStr) => {
-  const btns = document.querySelectorAll('button')
-  weather.value = weatherStr
-  btns.forEach((btn) => {
-    if (!btn.classList.contains('active')) {
-      btn.classList.add('active')
-    } else {
-      btn.classList.remove('active')
-    }
-  })
+const changeWeather = (weatherStr, e) => {
+  const btnSum = document.querySelector('.btn-summer')
+  const btnWin = document.querySelector('.btn-winter')
+
+  if (e.target.value === 'summer') {
+    btnSum.classList.add('active')
+    btnWin.classList.remove('active')
+    weather.value = weatherStr
+  }
+
+  if (e.target.value === 'winter') {
+    btnWin.classList.add('active')
+    btnSum.classList.remove('active')
+    weather.value = weatherStr
+  }
 }
 
 const addToBookmarks = (acc) => {
@@ -124,7 +137,7 @@ const removeFromBookmarks = (acc) => {
 onMounted(async () => {
   setTimeout(() => {
     pageLoaded.value = true
-  }, 1000)
+  }, 1500)
 
   await fetchAccData(apiUrl, accData, nameLink, errorData)
   const apiUrlAccs = `https://x8ki-letl-twmt.n7.xano.io/api:GC_IgfR7/${nameLink.value}`
@@ -148,6 +161,7 @@ onMounted(async () => {
   .acc-page-header {
     font-size: 6.4rem;
     font-weight: 600;
+    margin-top: 2rem;
   }
 
   .acc-page-desc {
@@ -293,6 +307,51 @@ onMounted(async () => {
     font-size: 1.8rem;
     font-weight: 600;
     margin-top: 0.5rem;
+  }
+}
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .singleAcc-page-hero .acc-page-header {
+    font-size: 5.4rem;
+  }
+
+  .single-accs-section .grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 960px) {
+  .singleAcc-page-hero .acc-page-header {
+    font-size: 4.2rem;
+  }
+
+  .singleAcc-page-hero .acc-page-desc {
+    font-size: 1.6rem;
+  }
+
+  .single-accs-section .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 630px) {
+  .singleAcc-page-hero .acc-page-header {
+    font-size: 3.2rem;
+  }
+
+  .single-accs-section .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 570px) {
+  .single-accs-section .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .singleAcc-page-hero .btns-wrap button {
+    padding: 1rem 1rem;
   }
 }
 </style>

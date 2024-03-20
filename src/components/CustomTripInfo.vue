@@ -128,4 +128,18 @@ const closeModal = () => {
     }
   }
 }
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .customTr-popup-overlay .customTr-popup {
+    width: 80%;
+  }
+}
+
+@media (max-width: 630px) {
+  .customTr-popup-overlay .customTr-popup {
+    width: 95%;
+    padding: 2rem 2rem;
+  }
+}
 </style>
