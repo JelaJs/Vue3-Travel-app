@@ -10,7 +10,7 @@
             sed risus eu porttitor. Proin ac porttitor leo, ac sollicitudin sapien. Aenean mattis
             diam vel scelerisque auctor. Nulla pulvinar feugiat nibh
           </p>
-          <button>Build Your Perfect Trip</button>
+          <button @click="goToSingleTrip">Build Your Perfect Trip</button>
         </div>
         <ul class="hero-right">
           <li>
@@ -53,6 +53,16 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goToSingleTrip = () => {
+  router.push('/yourtrip')
+}
+</script>
 
 <style scoped lang="scss">
 .getInspired-hero-sec {
