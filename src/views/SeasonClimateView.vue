@@ -212,4 +212,55 @@ const setSeason = (season) => {
     }
   }
 }
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .season-climate-hero h1 {
+    font-size: 5.4rem;
+  }
+
+  .season-climate-hero .flex-headers button {
+    font-size: 2.8rem;
+  }
+
+  .season-climate-hero .season-content h3 {
+    font-size: 2.8rem;
+  }
+
+  .season-climate-hero .season-content h4 {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .season-climate-hero h1 {
+    font-size: 4.2rem;
+  }
+
+  .season-climate-hero .sub-title {
+    font-size: 1.6rem;
+  }
+
+  .season-climate-hero .content-box {
+    margin-top: 4rem;
+  }
+}
+
+@media (max-width: 630px) {
+  .season-climate-hero h1 {
+    font-size: 3.2rem;
+  }
+
+  .season-climate-hero .flex-headers button {
+    font-size: 1.6rem;
+  }
+
+  .season-climate-hero .season-content h3 {
+    font-size: 2.3rem;
+  }
+
+  .season-climate-hero .season-content h4 {
+    font-size: 2rem;
+  }
+}
 </style>
