@@ -2,7 +2,6 @@
   <div class="custom-trip-wrap">
     <div v-if="loginG.authToken">
       <div>
-        <p class="no-trips-p">No trips yet...</p>
         <div class="make-trip-wrap">
           <p class="make-trip-p">Make Your Trip</p>
           <button @click="openModal">+</button>

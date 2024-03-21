@@ -104,8 +104,9 @@
         <div class="content-box">
           <p class="p-head">Are you sure you want to submit?</p>
           <p class="p-text">Once you submit, your trip idea will be sent and can't be changed</p>
-          <button class="submit" @click="createTrip">Submit</button>
-          <button @click="tripPopup = false">Cancel</button>
+          <button class="submit" @click="createTrip($event)">Submit</button>
+          <button @click="cancelTrip">Cancel</button>
+          <p v-show="emptyActivities">You have to add activities...</p>
         </div>
       </div>
     </div>
@@ -134,6 +135,7 @@ const isDraggedOver = ref(false)
 const draggableEl = ref(null)
 const tripPopup = ref(false)
 const isSmallScreen = ref(false)
+const emptyActivities = ref(false)
 
 if (!authTokenStore) {
   router.push('/login')
@@ -224,14 +226,17 @@ const removeItem = (content) => {
   customTrip.customTrip.dayContent[customTrip.customTrip.curDay].splice(index, 1)
 }
 
-const createTrip = async () => {
+const createTrip = async (e) => {
   customTrip.customTrip.isSaved = true
 
   const isEmpty = Object.values(customTrip.customTrip.dayContent).every(
     (value) => value.length === 0
   )
 
-  if (isEmpty) return
+  if (isEmpty) {
+    emptyActivities.value = true
+    return
+  }
 
   try {
     let formData = new FormData()
@@ -258,9 +263,18 @@ const createTrip = async () => {
     console.error(err)
   }
 
+  emptyActivities.value = false
+  e.target.style.color = '#ccc'
+  e.target.disabled = true
   localStorage.removeItem('customTrip')
   tripPopup.value = false
   router.push('/yourtrip')
+  e.target.disabled = false
+}
+
+const cancelTrip = () => {
+  tripPopup.value = false
+  emptyActivities.value = false
 }
 
 const handleSize = () => {
