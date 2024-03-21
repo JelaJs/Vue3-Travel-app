@@ -86,13 +86,14 @@ const RemoveFromBookmarks = (acc) => {
 }
 
 onMounted(async () => {
+  setTimeout(() => {
+    pageLoaded.value = true
+  }, 1500)
+
   await fetchAccData(apiUrl, accData, nameLink, accError)
   const singleAccUrl = `https://x8ki-letl-twmt.n7.xano.io/api:GC_IgfR7/${nameLink.value}/${number.value}`
   await fetchData(singleAccUrl, singleAccData, singleAccErr)
   bookmark.modifyObj(singleAccData.value, bookmark.bookmarks)
-  setTimeout(() => {
-    pageLoaded.value = true
-  }, 1000)
 })
 </script>
 
@@ -185,6 +186,56 @@ onMounted(async () => {
     font-weight: 600;
     padding-bottom: 1rem;
     border-bottom: 1px solid #000;
+  }
+}
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .single-acc-review .left .header {
+    font-size: 5.4rem;
+  }
+
+  .single-acc-review .details-wrap {
+    width: 30.2rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .single-acc-review .left .header {
+    font-size: 4.2rem;
+  }
+
+  .single-acc-review .flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .single-acc-review .left {
+    width: 100%;
+    padding: 0;
+  }
+
+  .single-acc-review .details-wrap {
+    width: 34rem;
+  }
+
+  .single-acc-review .left button {
+    margin-top: 3rem;
+  }
+
+  .single-acc-review .right {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+@media (max-width: 630px) {
+  .single-acc-review .left .header {
+    font-size: 3.2rem;
+  }
+
+  .single-acc-review .details-wrap {
+    width: 30rem;
   }
 }
 </style>

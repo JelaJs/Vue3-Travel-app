@@ -82,4 +82,28 @@ onMounted(async () => {
     margin-top: 3rem;
   }
 }
+
+/**Responsive */
+@media (max-width: 1200px) {
+  .blog-section .blog-header {
+    font-size: 5.4rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .blog-section .blog-header {
+    font-size: 4.2rem;
+  }
+
+  .blog-section .short-desc,
+  .blog-section .exp-desc {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 630px) {
+  .blog-section .blog-header {
+    font-size: 3.2rem;
+  }
+}
 </style>
