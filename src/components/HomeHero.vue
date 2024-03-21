@@ -49,6 +49,9 @@ const size = computed(() => Math.max(300 - distance.value / 3, 150))
 const headerEl = ref(null)
 const slideEl = ref(null)
 const allEls = ref(null)
+import imgHero1 from '../assets/heroSliderImgs/img1.jpg'
+import imgHero2 from '../assets/heroSliderImgs/img2.jpg'
+import imgHero3 from '../assets/heroSliderImgs/img3.jpg'
 
 function handleSlideChange(e) {
   let curSlideIndex = e.currentSlideIndex
@@ -64,11 +67,7 @@ const logoGradient = computed(() => {
   return `radial-gradient(circle at ${xPos}px ${yPos}px, black 30%, transparent 100%)`
 })
 
-const imgSlider = [
-  '/src/assets/heroSliderImgs/img1.jpg',
-  '/src/assets/heroSliderImgs/img2.jpg',
-  '/src/assets/heroSliderImgs/img3.jpg'
-]
+const imgSlider = [imgHero1, imgHero2, imgHero3]
 
 const headers = ['Ski & Adventure', 'Get Cozy', 'Snow Rides']
 
