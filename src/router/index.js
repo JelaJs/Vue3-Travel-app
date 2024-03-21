@@ -87,7 +87,10 @@ const router = createRouter({
       name: 'makecustomtrip',
       component: CustomTripMaker
     }
-  ]
+  ],
+  scrollBehavior() {
+    return { top: 0, left: 0 }
+  }
 })
 
 export default router

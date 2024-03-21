@@ -14,6 +14,7 @@
           <p class="trip-duration"><span class="clock-icon">&#8987;</span>{{ trip.duration }}</p>
         </div>
       </div>
+      <div v-if="!tripIdeas">{{ errors }}</div>
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div v-if="tripData" class="trip-days-section">
     <div class="container">
-      <div class="tripdays-grid">
+      <div v-if="tripData" class="tripdays-grid">
         <div class="days-menu">
           <ul>
             <li
@@ -38,6 +38,7 @@
           </div>
         </div>
       </div>
+      <div v-if="!tripData">{{ tripErr }}</div>
     </div>
   </div>
 </template>

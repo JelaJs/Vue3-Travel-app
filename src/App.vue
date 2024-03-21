@@ -64,7 +64,6 @@
 </template>
 
 <script setup>
-//Uradi error handling posle responsiva
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { RouterLink, RouterView } from 'vue-router'

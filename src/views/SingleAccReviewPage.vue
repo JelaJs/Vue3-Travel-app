@@ -38,6 +38,7 @@
           </div>
         </div>
       </div>
+      <div v-if="!singleAccData">{{ accError }}</div>
     </div>
     <PagePreloader v-show="!pageLoaded" />
     <Footer />

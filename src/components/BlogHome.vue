@@ -1,7 +1,7 @@
 <template>
   <div class="blog-section">
     <div class="container">
-      <Carousel :autoplay="10000" :wrap-around="true">
+      <Carousel v-if="blogs" :autoplay="10000" :wrap-around="true">
         <Slide v-for="blog in blogs" :key="blog.id">
           <div class="carousel__item">
             <div class="slide-flex">
@@ -19,6 +19,7 @@
           <Pagination />
         </template>
       </Carousel>
+      <div v-if="!blogs">{{ blogsErr }}</div>
     </div>
   </div>
 </template>

@@ -12,6 +12,7 @@
           <img :src="blogData.blogExpirience.expImg.url" alt="Single blog expiriance image" />
         </div>
       </div>
+      <div v-if="blogData">{{ blogErr }}</div>
     </div>
     <Footer />
   </div>

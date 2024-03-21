@@ -9,6 +9,7 @@
             <img :src="thingData.image.url" />
           </div>
         </div>
+        <div v-if="!thingData">{{ thingErr }}</div>
       </div>
 
       <div v-if="thingData" class="activities-section">

@@ -10,6 +10,7 @@
           </div>
         </div>
       </div>
+      <div v-if="accData">{{ errorData }}</div>
     </div>
   </div>
 </template>

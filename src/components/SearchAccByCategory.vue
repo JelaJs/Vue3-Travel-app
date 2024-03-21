@@ -2,7 +2,7 @@
   <div class="searchBy-section">
     <div class="container">
       <p class="section-headers">Search for accomodation</p>
-      <div class="find-grid">
+      <div v-if="allAccs" class="find-grid">
         <div class="options">
           <form>
             <fieldset>
@@ -81,6 +81,7 @@
           </div>
         </div>
       </div>
+      <div v-if="!allAccs">{{ accsErr }}</div>
     </div>
   </div>
 </template>
