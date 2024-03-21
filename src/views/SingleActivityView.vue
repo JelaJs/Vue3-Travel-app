@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <Footer />
+    <Footer v-show="pageLoaded" />
     <PagePreloader v-show="!pageLoaded" />
   </div>
 </template>
