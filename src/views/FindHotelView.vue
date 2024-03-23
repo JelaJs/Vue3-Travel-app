@@ -2,6 +2,10 @@
   <div class="map-page">
     <div class="header-input-wrap">
       <div>
+        <p class="info-p">
+          If you don't fit into our offers, or you don't like a place that we offer, here you can
+          research and find accommodation for yourself anywhere in the world.
+        </p>
         <h1>Find perfect hotel</h1>
         <input
           id="autocomplete"
@@ -253,6 +257,11 @@ onMounted(() => {
   justify-content: space-between;
 
   h1 {
+    margin-top: 0.5rem;
+  }
+
+  .info-p {
+    font-size: 1.4rem;
     margin-top: 2rem;
   }
 

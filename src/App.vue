@@ -13,9 +13,9 @@
     <div class="build-and-find">
       <nav>
         <RouterLink class="build-trip-link" to="/yourtrip">Build Trip</RouterLink>
-        <RouterLink to="/explore">Find Hotel</RouterLink>
+        <RouterLink to="/explore">Explore Map</RouterLink>
         <div v-show="!loginG.authToken">
-          <RouterLink to="/login">Login</RouterLink>
+          <RouterLink class="login-btn" to="/login">Login</RouterLink>
         </div>
         <div v-show="loginG.authToken">
           <button class="logoutBtn" @click="logout">Logout</button>
@@ -44,9 +44,9 @@
         <RouterLink to="/tripideas">Trip Ideas</RouterLink>
         <RouterLink to="/accomodations">Where To Stay</RouterLink>
 
-        <RouterLink to="/explore">Find Hotel</RouterLink>
+        <RouterLink to="/explore">Explore Map</RouterLink>
         <div v-show="!loginG.authToken">
-          <RouterLink to="/login">Login</RouterLink>
+          <RouterLink class="login-btn" to="/login">Login</RouterLink>
         </div>
         <div v-show="loginG.authToken">
           <button class="logoutBtn" @click="logout">Logout</button>
@@ -135,6 +135,11 @@ header {
 
   a:hover {
     color: #636363;
+  }
+
+  .login-btn {
+    color: #000;
+    font-weight: 600;
   }
 
   .build-trip-link {
