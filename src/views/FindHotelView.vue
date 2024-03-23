@@ -49,6 +49,7 @@
             <button v-if="place.isSaved" @click="removePlace(place)">Remove</button>
           </li>
         </ul>
+        <p v-if="mapPalces.length === 0">No search yet...</p>
       </div>
       <div id="map"></div>
     </div>
