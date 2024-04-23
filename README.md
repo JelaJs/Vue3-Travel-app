@@ -1,13 +1,11 @@
 # Vue3-Traveling-App
 
-I made the app using Vue and Vite, for the backend, I used the free version of the Xano no-code tool, which means I have 20 API calls per 10 seconds.
+I developed the app using Vue and Vite, while leveraging the free version of Xano's no-code tool for the backend, granting me 20 API calls per 10 seconds.
 
-The application is intended for a travel agency where the user can explore the offer, accommodation, and various activities.
-The user can find information about each accommodation, restaurant, and store such as location, working hours, and phone number.
-It can also find information about each activity such as the difficulty, and what time of year the activity is available.
+The application caters to a travel agency's needs, allowing users to peruse offers, accommodations, and various activities. Users can delve into details about each accommodation, restaurant, and store, including location, operating hours, and contact information. Likewise, they can explore activity specifics such as difficulty level and seasonal availability.
 
-After that, the user can log in and choose the current days he wants to stay and create a trip of his own with activities for each day, and type of accommodation he want to stay. After the user makes a trip of his own and submits it, he will be contacted via email with the best offer for him.
+Upon logging in, users can select their desired stay dates and curate a personalized trip with daily activities and accommodation preferences. Once they finalize their itinerary and submit it, they will receive an email with the best offer tailored to their preferences.
 
-If user does not fit into the offer and wants to find accommodation in a location of his choice, he has the option to explore Google Maps and find the ideal accommodation for himself.
+For users seeking accommodations outside the offered options, they can utilize Google Maps to discover ideal lodging in their desired location.
 
 App url: https://traveling-perfect-trip.netlify.app/
