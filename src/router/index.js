@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import FindHotelView from '../views/FindHotelView.vue'
 import SingleAccPage from '../views/SingleAccPageView.vue'
 import SingleAccReviewPage from '../views/SingleAccReviewPage.vue'
 import SeasonClimate from '../views/SeasonClimateView.vue'
@@ -26,11 +25,6 @@ const router = createRouter({
       path: '/accomodations',
       name: 'accomodations',
       component: AccomodationView
-    },
-    {
-      path: '/explore',
-      name: 'explore',
-      component: FindHotelView
     },
     {
       path: '/singleacc/:id',

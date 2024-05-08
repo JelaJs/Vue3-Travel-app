@@ -13,7 +13,6 @@
     <div class="build-and-find">
       <nav>
         <RouterLink class="build-trip-link" to="/yourtrip">Build Trip</RouterLink>
-        <RouterLink to="/explore">Explore Map</RouterLink>
         <div v-show="!loginG.authToken">
           <RouterLink class="login-btn" to="/login">Login</RouterLink>
         </div>

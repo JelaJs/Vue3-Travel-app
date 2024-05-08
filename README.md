@@ -6,6 +6,4 @@ The application caters to a travel agency's needs, allowing users to peruse offe
 
 Upon logging in, users can select their desired stay dates and curate a personalized trip with daily activities and accommodation preferences. Once they finalize their itinerary and submit it, they will receive an email with the best offer tailored to their preferences.
 
-For users seeking accommodations outside the offered options, they can utilize Google Maps to discover ideal lodging in their desired location.
-
 App url: https://traveling-perfect-trip.netlify.app/
